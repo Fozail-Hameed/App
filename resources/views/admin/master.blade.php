@@ -1,9 +1,5 @@
 
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -11,12 +7,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>Admin Panel</title>
+
     <link rel="icon" href="{{ asset('img/ff.png') }}" type="image/ico" />
   <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="hold-transition sidebar-mini">
-    <div id="app"></div>
+    <div id="app">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -28,20 +25,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- SEARCH FORM -->
     <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
+      <div class="input-group input-group-sm green">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-search cyan"></i>
           </button>
         </div>
       </div>
     </form>
 
-    <!-- Right navbar links -->
-   
   </nav>
-  <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -49,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="index3.html" class="brand-link">
       <img src="img/ff.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin Panel</span>
+      <span class="brand-text font-weight-light DarkRed ">Admin Panel</span>
     </a>
 
     <!-- Sidebar -->
@@ -70,54 +64,71 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <router-link to="/admin/dashboard" class="nav-link" active-class="active" exact>
+              <i class="nav-icon fas fa-tachometer-alt blue"></i>
               <p>
                 Dashboard
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-user-cog"></i>
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-users-cog green"></i>
               <p>
                 Managment
-                <i class="right fas fa-angle-left"></i>
+                <i class="right fas fa-angle-left green"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview green">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="fas fa-angle-right"></i>
-                  <p>Active Page</p>
+                <router-link to="/admin/user" class="nav-link" active-class="active" exact>
+                  <i class="fas fa-users green"></i>
+                  <i class="fas fa-angle-right green"></i>
+                  <p>Users</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="fas fa-angle-right"></i>
+                  <i class="fas fa-angle-right green"></i>
                   <p>Inactive Page</p>
                 </a>
               </li>
             </ul>
           </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+           <!-- <a href="#" class="nav-link"> -->
+            <router-link to="/admin/profile" class="nav-link"  active-class="active" exact>
+              <i class="nav-icon fas fa-user orange"></i>
               <p>
                 Profile
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-power-off"></i>
+           <!-- <a href="#" class="nav-link"> -->
+            <router-link to="/admin/developer" class="nav-link"  active-class="active" exact>
+              <i class="nav-icon fas fa-cogs indigo"></i>
               <p>
-                Logout
+                Developer
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
-            </a>
+            </router-link>
+          </li>
+          <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" style="margin-left: 6px;">
+                <i class="fas fa-power-off red"></i>
+             <p style="margin-left: 5px;">
+                        {{ __('Logout') }}
+            </p>
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+             @csrf
+        </form>
           </li>
         </ul>
       </nav>
@@ -128,14 +139,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-   
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+
+      </div><!-- /.container-fluid -->
+    </div>
     <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
+       <router-view></router-view>
 
-      </div>
+       <vue-progress-bar></vue-progress-bar>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
@@ -150,23 +169,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </aside>
   <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
 </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
+</div>
 <script src="{{ asset('/js/app.js') }}"></script>
 
 </body>
 </html>
+
