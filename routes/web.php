@@ -25,7 +25,7 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 // Route::get('{any}', function () {
 //     return view('home');
 // })->where('any','.*');
-Route::get('{path}', 'HomeController@index')->where( 'path' , '([A-z\d\-\/_.]+)?' );
+// Route::get('{path}', 'HomeController@index')->where( 'path' , '([A-z\d\-\/_.]+)?' );
 // Route::get('logout','HomeController@Logout')->name('logout');
 Route::get('logout','HomeController@LogOut');
 // 
